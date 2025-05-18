@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace GitHubService
+namespace CVSiteService
 {
     public static class Extension
     {
