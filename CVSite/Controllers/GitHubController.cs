@@ -16,7 +16,6 @@ namespace CVSite.Controllers
             _gitHubService = gitHubService;
         }
 
-        // GET: api/<GitHubController>
         [HttpGet("portFolio")]
         public async Task<ActionResult<List<PortFolio>>> Get()
         {

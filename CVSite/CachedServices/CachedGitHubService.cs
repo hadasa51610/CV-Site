@@ -11,6 +11,7 @@ namespace CVSite.NewFolder
         private readonly IMemoryCache _memoryCache;
         private const string UserPortFolioKey = "UserPortFolioKey";
         private const string LastEventKey = "LastEventKey";
+
         public CachedGitHubService(IGitHubService gitHubService, IMemoryCache memoryCache)
         {
             _gitHubService = gitHubService;
@@ -21,16 +22,6 @@ namespace CVSite.NewFolder
         {
             var latestEventDate = await GetLastUserActivityDateAsync();
 
-            //if (_memoryCache.TryGetValue(UserPortFolioKey, out List<PortFolio> portFolios))
-            //    return portFolios;
-
-            //var cacheOption = new MemoryCacheEntryOptions()
-            //    .SetAbsoluteExpiration(TimeSpan.FromSeconds(30))
-            //    .SetSlidingExpiration(TimeSpan.FromSeconds(10));
-
-            //portFolios = await _gitHubService.GetPortFolioAsync();
-            //_memoryCache.Set(UserPortFolioKey, portFolios, cacheOption);
-            //return portFolios;
             if (_memoryCache.TryGetValue(LastEventKey, out DateTimeOffset cachedEventDate) &&
                 _memoryCache.TryGetValue(UserPortFolioKey, out List<PortFolio> cachedPortfolio))
             {
@@ -44,8 +35,6 @@ namespace CVSite.NewFolder
 
             _memoryCache.Set(UserPortFolioKey, cachedPortfolio);
             _memoryCache.Set(LastEventKey, latestEventDate ?? DateTimeOffset.UtcNow);
-
-
 
             return cachedPortfolio;
         }
